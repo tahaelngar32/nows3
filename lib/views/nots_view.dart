@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news3/cubits/notes_cubit/notes_cubit.dart';
 import 'package:news3/widgets/nots_view_body.dart';
 
 import '../widgets/add_note_model_sheet.dart';
@@ -12,6 +14,7 @@ class NotsView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
+              isScrollControlled: true, // عشان يتعمل اسكرول لما يفتح الكيبورد
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),

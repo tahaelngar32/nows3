@@ -14,27 +14,29 @@ class AddNoteModelSheet extends StatelessWidget {
 // bool isLoading=false;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AddNoteCubit(),
-      child: BlocConsumer<AddNoteCubit, AddNoteState>(
-        listener: (context, state) {
-          if (state is AddNoteFailure) {
-            print("failied${state.errMessage}");
-          }
-          if (state is AddNoteSuccess) {
-            Navigator.pop(context);
-          }
-        },
-        builder: (context, state) {
-          return AbsorbPointer(
-            absorbing: state is AddNoteLoading?true:false, // دي فايدتها انها توقف عمل الانبيوت وقت الحفظ
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-              child: SingleChildScrollView(child: AddNoteForm()),
+    return BlocConsumer<AddNoteCubit, AddNoteState>(
+      listener: (context, state) {
+        if (state is AddNoteFailure) {
+          print("failied${state.errMessage}");
+        }
+        if (state is AddNoteSuccess) {
+          Navigator.pop(context);
+        }
+      },
+      builder: (context, state) {
+        return AbsorbPointer(
+          absorbing: state is AddNoteLoading ? true : false,
+          // دي فايدتها انها توقف عمل الانبيوت وقت الحفظ
+          child:  Padding(
+            padding: EdgeInsets.only(
+                right: 16,
+                left: 8,
+                bottom: MediaQuery.of(context).viewInsets.bottom // فايدتها تعمل بادينغ بارتفاع  عند ظهور الكيبورد
             ),
-          );
-        },
-      ),
+            child: const SingleChildScrollView(child: AddNoteForm()),
+          ),
+        );
+      },
     );
   }
 }
